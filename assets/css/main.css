@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;1,100;1,300&display=swap");
+:root {
+  color: #fff;
+  font-family: "Poppins", sans-serif; /*sans szeryf*/
+  font-weight: 200;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #0a0a0a;
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  -webkit-padding-before: 20px;
+          padding-block-start: 20px;
+  background-color: #191919;
+  width: clamp(500px, 100vw - 70px, 900px);
+}
+main header {
+  text-align: center;
+}
+main header .title {
+  color: #2862e9;
+  font-size: 2.3rem;
+}
+main header #score {
+  font-weight: 300;
+  font-size: 22px;
+}
+main .imageContainer {
+  display: grid;
+  place-items: center;
+  width: 500px;
+  overflow: hidden;
+  border-radius: 69%;
+  aspect-ratio: 1/1;
+  margin-top: 28px;
+}
+main .imageContainer #clicker {
+  cursor: pointer;
+  scale: 1;
+  -webkit-user-drag: none;
+}
+main .imageContainer #clicker.pop {
+  -webkit-animation: pop 50ms 1;
+          animation: pop 50ms 1;
+}
+
+.resetDialogButtons {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+  -webkit-padding-end: 8px;
+          padding-inline-end: 8px;
+  -webkit-margin-after: 12px;
+          margin-block-end: 12px;
+}
+.resetDialogButtons button {
+  cursor: pointer;
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 5px;
+  border: 0;
+}
+.resetDialogButtons button:first-child {
+  background-color: #1abb32;
+}
+.resetDialogButtons button:last-child {
+  background-color: #d30000;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  margin-block: auto 25px;
+  justify-content: space-around;
+  justify-self: flex-end;
+}
+footer button {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  border: 0;
+  cursor: pointer;
+  background-color: rgb(91, 146, 255);
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 5px;
+}
+footer button .icon {
+  transform: scale(1);
+  transform-origin: center;
+  transition: 100ms ease-in-out;
+}
+footer button:hover .icon {
+  transform: scale(1.1);
+}
+
+@-webkit-keyframes pop {
+  0%, 100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.1;
+  }
+}
+
+@keyframes pop {
+  0%, 100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.1;
+  }
+}
+.storeContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  -webkit-margin-after: 25px;
+          margin-block-end: 25px;
+}
+.storeContainer .card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background-color: #303030;
+  padding: 15px;
+  border-radius: 12px;
+  gap: 5px;
+}
+.storeContainer .card img {
+  width: 200px;
+  aspect-ratio: 1/1;
+  border-radius: 420%;
+}
+.storeContainer .card .description {
+  color: #2862e9;
+  font-size: 1.1em;
+}
+.storeContainer .card .info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.storeContainer .card .info .price {
+  font-size: 0.77em;
+  text-transform: uppercase;
+}
+
+.storeFooter {
+  background-color: #303030;
+  border-radius: 12px;
+  padding-block: 8px;
+}

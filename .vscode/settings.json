@@ -1,0 +1,16 @@
+{
+  "liveSassCompile.settings.watchOnLaunch": true,
+  "liveSassCompile.settings.generateMap": false,
+  "liveSassCompile.settings.showOutputWindowOn": "None",
+  "liveSassCompile.settings.showAnnouncements": false,
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "/assets/css",
+      "savePathReplacementPairs": null
+    }
+  ],
+  "editor.tabSize": 2,
+  "prettier.tabWidth": 2
+}

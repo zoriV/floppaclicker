@@ -1,0 +1,138 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;1,100;1,300&display=swap");
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.6666666667);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  z-index: 9999999999;
+  color: #fff;
+}
+.modal.active {
+  display: grid;
+}
+.modal.active .modal__container {
+  -webkit-animation: fadeIn 150ms ease-in forwards;
+          animation: fadeIn 150ms ease-in forwards;
+  display: block;
+  opacity: 1;
+  scale: 1;
+}
+.modal.closing {
+  display: grid;
+}
+.modal.closing .modal__container {
+  -webkit-animation: fadeOut 150ms ease-in forwards;
+          animation: fadeOut 150ms ease-in forwards;
+}
+.modal__container {
+  width: 600px;
+  background-color: #262626;
+  overflow: hidden;
+  border-radius: 16px;
+  opacity: 0;
+  scale: 0;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+.modal__header {
+  height: 46px;
+  background-image: linear-gradient(315deg, #2862e9, #1754e1);
+  padding: 16px;
+  box-sizing: content-box;
+}
+.modal__header-title {
+  font-size: 26px;
+}
+.modal__header-close {
+  position: relative;
+  font-size: 34px;
+  font-weight: 300;
+  cursor: pointer;
+  float: right;
+  top: -5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.modal__content {
+  font-weight: 300;
+  margin-inline: 24px;
+}
+
+#openModal {
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  padding: 20px;
+  background-color: white;
+  position: relative;
+}
+#openModal::before {
+  content: "❱";
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  background-color: red;
+  width: 25px;
+  height: 100%;
+  translate: -100%;
+  display: grid;
+  place-items: center;
+  color: #2862e9;
+  background-color: white;
+  font-size: 32px;
+  border-right: 1px solid black;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0;
+  }
+}

@@ -1,0 +1,112 @@
+@use "var" as v;
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  place-items: center;
+  background-color: #000000aa;
+  backdrop-filter: blur(2px);
+  z-index: 9999999999;
+  color: v.$text;
+  &.active {
+    display: grid;
+    .modal__container {
+      animation: fadeIn 150ms ease-in forwards;
+      display: block;
+      opacity: 1;
+      scale: 1;
+    }
+  }
+  &.closing {
+    display: grid;
+    .modal__container {
+      animation: fadeOut 150ms ease-in forwards;
+    }
+  }
+  &__container {
+    width: 600px;
+    background-color: #262626;
+    overflow: hidden;
+    border-radius: 16px;
+    opacity: 0;
+    scale: 0;
+    animation-fill-mode: forwards;
+  }
+  &__header {
+    height: 46px;
+    background-image: linear-gradient(315deg, v.$primary, darken(v.$primary, 5));
+    padding: 16px;
+    box-sizing: content-box;
+    &-title {
+      font-size: 26px;
+    }
+    &-close {
+      position: relative;
+      font-size: 34px;
+      font-weight: 300;
+      cursor: pointer;
+      float: right;
+      top: -5px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  }
+  &__content {
+    font-weight: 300;
+    margin-inline: 24px;
+  }
+}
+
+#openModal {
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  padding: 20px;
+  background-color: white;
+  position: relative;
+  &::before {
+    content: "\02771";
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    background-color: red;
+    width: 25px;
+    height: 100%;
+    translate: -100%;
+    display: grid;
+    place-items: center;
+    color: v.$primary;
+    background-color: white;
+    font-size: 32px;
+    border-right: 1px solid black;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0;
+  }
+}

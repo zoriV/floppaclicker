@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FloppaClicker</title>
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/modal.css" />
+    <script src="https://kit.fontawesome.com/58fefbd958.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/script.js" type="module" defer></script>
+  </head>
+  <body>
+    <div class="modal" id="store">
+      <div class="modal__container">
+        <div class="modal__header">
+          <span class="modal__header-title">Shop</span>
+          <span class="modal__header-close">&times;</span>
+        </div>
+        <div class="modal__content">
+          <h1>Buy whatever you want</h1>
+          <div class="storeContainer">
+            <div class="card" id="store_multiplier">
+              <img src="/assets/img/floppa3.jpg" alt="store item" />
+              <span class="description">Multiplier</span><span class="info"><span class="price">200 geld</span><output class="owned" id="ownedMulti">213</output></span>
+            </div>
+            <div class="card" id="store_generator">
+              <img src="/assets/img/floppa4.jpg" alt="store item2" />
+              <span class="description">Coin generator</span><span class="info"><span class="price">550 geld</span><output class="owned" id="ownedGen">123</output></span>
+            </div>
+          </div>
+          <footer class="storeFooter">Your geld: <output id="yourPoints"></output></footer>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="resetDialog">
+      <div class="modal__container">
+        <div class="modal__header">
+          <span class="modal__header-title">Are you siur?</span>
+          <span class="modal__header-close">&times;</span>
+        </div>
+        <div class="modal__content">
+          <p>Do you really want to lose all your progress?</p>
+          <div class="resetDialogButtons">
+            <button class="confirm" id="confirmReset">Yeah, why not?</button>
+            <button class="cancel" id="cancelReset">Nope :/</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main>
+      <header>
+        <h1 class="title">FloppaClicker</h1>
+        <span class="score"
+          >Score:
+          <output id="score"></output>
+        </span>
+      </header>
+      <div class="game">
+        <div class="imageContainer">
+          <img src="assets/img/floppa.jpg" alt="Clicker" id="clicker" />
+        </div>
+      </div>
+      <footer>
+        <button id="reset"><i class="fa-solid fa-trash icon"></i> Reset</button>
+        <button id="openStore"><i class="fa-solid fa-basket-shopping icon"></i> Shop</button>
+      </footer>
+    </main>
+  </body>
+</html>
