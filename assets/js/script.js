@@ -14,8 +14,13 @@ const store_ownedGen = document.querySelector("#ownedGen");
 const store_ownedMulti = document.querySelector("#ownedMulti");
 const pointsOut = document.querySelector("#yourPoints");
 
+const PRICES = Object.freeze({
+  multiplier: 250,
+  generator: 550,
+});
+
 const updateScore = (amount) => {
-  score += amount * multiplier;
+  score += amount * items.multiplier;
   setStorage(score);
   setOutput(score);
 };
@@ -39,6 +44,11 @@ const getCurrentScore = () => {
   return Number.parseInt(window.localStorage.getItem("score"));
 };
 
+const updateStore = (score) => {
+  if (score >= PRICES.multiplier) store_multiplier.classList.add("available");
+  if (score >= PRICES.generator) store_generator.classList.add("available");
+};
+
 const getItems = () => {
   const m = Number.parseInt(window.localStorage.getItem("store_multiplier")) || 1,
     g = Number.parseInt(window.localStorage.getItem("store_generator")) || 0;
@@ -52,7 +62,6 @@ const items = getItems();
 
 let score = getCurrentScore() || 0;
 setOutput(score);
-let multiplier = 1;
 
 clicker.addEventListener("mousedown", () => {
   updateScore(1);
@@ -90,5 +99,6 @@ resetDialog_confirm.addEventListener("click", () => {
 });
 
 storeBtn.addEventListener("click", () => {
+  updateStore(score);
   openModal(store);
 });

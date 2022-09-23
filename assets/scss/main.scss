@@ -132,6 +132,9 @@ footer {
     padding: 15px;
     border-radius: 12px;
     gap: 5px;
+    &.available .info .price {
+      color: v.$state-correct;
+    }
     img {
       width: 200px;
       aspect-ratio: 1 / 1;
@@ -145,9 +148,14 @@ footer {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      text-transform: uppercase;
       .price {
+        font-weight: 400;
+        font-size: 0.8em;
+        color: lighten(v.$state-error, 10);
+      }
+      .owned {
         font-size: 0.77em;
-        text-transform: uppercase;
       }
     }
   }

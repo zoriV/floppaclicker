@@ -144,6 +144,9 @@ footer button:hover .icon {
   border-radius: 12px;
   gap: 5px;
 }
+.storeContainer .card.available .info .price {
+  color: #1abb32;
+}
 .storeContainer .card img {
   width: 200px;
   aspect-ratio: 1/1;
@@ -157,10 +160,15 @@ footer button:hover .icon {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  text-transform: uppercase;
 }
 .storeContainer .card .info .price {
+  font-weight: 400;
+  font-size: 0.8em;
+  color: #ff0707;
+}
+.storeContainer .card .info .owned {
   font-size: 0.77em;
-  text-transform: uppercase;
 }
 
 .storeFooter {
