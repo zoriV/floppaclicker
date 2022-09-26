@@ -19,8 +19,18 @@ const PRICES = Object.freeze({
   generator: 550,
 });
 
-const updateScore = (amount) => {
-  score += amount * items.multiplier;
+const canBuy = (price, score) => {
+  return score >= price;
+};
+
+const addPoints = (amount, useMultiplier) => {
+  useMultiplier ? (score += amount * items.multiplier) : (score += amount);
+  setStorage(score);
+  setOutput(score);
+};
+
+const removePoints = (amount) => {
+  score -= amount;
   setStorage(score);
   setOutput(score);
 };
@@ -46,25 +56,67 @@ const getCurrentScore = () => {
 
 const updateStore = (score) => {
   if (score >= PRICES.multiplier) store_multiplier.classList.add("available");
+  else {
+    if (store_multiplier.classList.contains("available")) store_multiplier.classList.remove("available");
+  }
+
   if (score >= PRICES.generator) store_generator.classList.add("available");
+  else {
+    if (store_generator.classList.contains("available")) store_generator.classList.remove("available");
+  }
+
+  pointsOut.innerText = score;
 };
 
-const getItems = () => {
-  const m = Number.parseInt(window.localStorage.getItem("store_multiplier")) || 1,
-    g = Number.parseInt(window.localStorage.getItem("store_generator")) || 0;
-  return {
-    multiplier: m,
-    generator: g,
-  };
+const updateMultiplier = () => {
+  if (canBuy(PRICES.multiplier, score)) {
+    removePoints(PRICES.multiplier);
+    items.multiplier++;
+    store_ownedMulti.innerText = items.multiplier;
+    updateStore(score);
+    setOutput(score);
+    window.localStorage.setItem("items_multiplier", items.multiplier);
+  }
 };
 
-const items = getItems();
+const updateGenerator = () => {
+  if (canBuy(PRICES.generator, score)) {
+    removePoints(PRICES.generator);
+    items.generator++;
+    store_ownedGen.innerText = items.generator;
+    updateStore(score);
+    setOutput(score);
+    window.localStorage.setItem("items_generator", items.multiplier);
+  }
+};
+
+const items = {};
+
+const loadItems = () => {
+  items.multiplier = Number.parseInt(window.localStorage.getItem("items_multiplier")) || 1;
+  items.generator = Number.parseInt(window.localStorage.getItem("items_generator")) || 0;
+  store_ownedMulti.innerText = items.multiplier;
+  store_ownedGen.innerText = items.generator;
+
+  setInterval(() => {
+    addPoints(items.generator, false);
+  }, 1000);
+};
+loadItems();
+// const getItems = () => {
+//   const m = Number.parseInt(window.localStorage.getItem("store_multiplier")) || 1,
+//     g = Number.parseInt(window.localStorage.getItem("store_generator")) || 0;
+//   return {
+//     multiplier: m,
+//     generator: g,
+//   };
+// };
 
 let score = getCurrentScore() || 0;
 setOutput(score);
 
 clicker.addEventListener("mousedown", () => {
-  updateScore(1);
+  addPoints(1, true);
   if (!clicker.classList.contains("pop")) {
     clicker.classList.add("pop");
     clicker.src = "assets/img/floppa2.jpg";
@@ -87,6 +139,14 @@ clicker.addEventListener("mousedown", () => {
 
 reset.addEventListener("click", () => {
   openModal(resetDialog);
+});
+
+store_multiplier.addEventListener("click", () => {
+  updateMultiplier();
+});
+
+store_generator.addEventListener("click", () => {
+  updateGenerator();
 });
 
 resetDialog_cancel.addEventListener("click", () => {
