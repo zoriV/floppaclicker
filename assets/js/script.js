@@ -14,13 +14,17 @@ const store_ownedGen = document.querySelector("#ownedGen");
 const store_ownedMulti = document.querySelector("#ownedMulti");
 const pointsOut = document.querySelector("#yourPoints");
 
-const PRICES = Object.freeze({
+const PRICES = {
   multiplier: 250,
   generator: 550,
-});
+};
 
 const canBuy = (price, score) => {
   return score >= price;
+};
+
+const getAmountToBuy = (price, score) => {
+  return Math.floor(score / price);
 };
 
 const addPoints = (amount, useMultiplier) => {
@@ -48,6 +52,14 @@ const resetProgress = () => {
   score = 0;
   setStorage(0);
   setOutput(0);
+
+  items.multiplier = 1;
+  store_ownedMulti.innerText = items.multiplier;
+  window.localStorage.setItem("items_multiplier", 1);
+
+  items.generator = 0;
+  store_ownedMulti.innerText = items.generator;
+  window.localStorage.setItem("items_generator", 0);
 };
 
 const getCurrentScore = () => {
@@ -68,10 +80,16 @@ const updateStore = (score) => {
   pointsOut.innerText = score;
 };
 
-const updateMultiplier = () => {
+const updateMultiplier = (multi) => {
   if (canBuy(PRICES.multiplier, score)) {
-    removePoints(PRICES.multiplier);
-    items.multiplier++;
+    if (multi) {
+      const amount = getAmountToBuy(PRICES.multiplier, score);
+      items.multiplier += amount;
+      removePoints(amount * PRICES.multiplier);
+    } else {
+      removePoints(PRICES.multiplier);
+      items.multiplier++;
+    }
     store_ownedMulti.innerText = items.multiplier;
     updateStore(score);
     setOutput(score);
@@ -79,10 +97,16 @@ const updateMultiplier = () => {
   }
 };
 
-const updateGenerator = () => {
+const updateGenerator = (multi) => {
   if (canBuy(PRICES.generator, score)) {
-    removePoints(PRICES.generator);
-    items.generator++;
+    if (multi) {
+      const amount = getAmountToBuy(PRICES.generator, score);
+      items.generator += amount;
+      removePoints(amount * PRICES.generator);
+    } else {
+      removePoints(PRICES.generator);
+      items.generator++;
+    }
     store_ownedGen.innerText = items.generator;
     updateStore(score);
     setOutput(score);
@@ -103,14 +127,6 @@ const loadItems = () => {
   }, 1000);
 };
 loadItems();
-// const getItems = () => {
-//   const m = Number.parseInt(window.localStorage.getItem("store_multiplier")) || 1,
-//     g = Number.parseInt(window.localStorage.getItem("store_generator")) || 0;
-//   return {
-//     multiplier: m,
-//     generator: g,
-//   };
-// };
 
 let score = getCurrentScore() || 0;
 setOutput(score);
@@ -137,16 +153,33 @@ clicker.addEventListener("mousedown", () => {
   }
 });
 
+window.addEventListener("keydown", (e) => {
+  if (e.key !== " ") return;
+  addPoints(1, true);
+  if (!clicker.classList.contains("pop")) {
+    clicker.classList.add("pop");
+    clicker.src = "assets/img/floppa2.jpg";
+    clicker.addEventListener(
+      "animationend",
+      () => {
+        clicker.classList.remove("pop");
+        clicker.src = "assets/img/floppa.jpg";
+      },
+      { once: true }
+    );
+  }
+});
+
 reset.addEventListener("click", () => {
   openModal(resetDialog);
 });
 
-store_multiplier.addEventListener("click", () => {
-  updateMultiplier();
+store_multiplier.addEventListener("click", (e) => {
+  updateMultiplier(e.shiftKey);
 });
 
-store_generator.addEventListener("click", () => {
-  updateGenerator();
+store_generator.addEventListener("click", (e) => {
+  updateGenerator(e.shiftKey);
 });
 
 resetDialog_cancel.addEventListener("click", () => {
@@ -161,4 +194,10 @@ resetDialog_confirm.addEventListener("click", () => {
 storeBtn.addEventListener("click", () => {
   updateStore(score);
   openModal(store);
+});
+
+window.addEventListener("keydown", (e) => {
+  const key = e.key;
+  if (key === "g") updateGenerator(e.shiftKey);
+  if (key === "m") updateMultiplier(e.shiftKey);
 });
